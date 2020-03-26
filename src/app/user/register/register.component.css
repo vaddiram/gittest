@@ -2,27 +2,3 @@
     border: 1px solid red;
 } */
 
-mat-grid-tile form,
-mat-grid-tile form mat-form-field,
-mat-grid-tile form button { width: 100%; }
-
-mat-grid-tile form {
-    padding: 2rem;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-}
-
-.formHeading {
-    margin: 0;
-    text-transform: uppercase;
-    text-align: center;
-    line-height: 2.5rem;
-    background-color: #673ab7;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.toggle-form-link p {
-    margin: 0;
-    text-align: center;
-}
