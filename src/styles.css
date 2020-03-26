@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 * {
     box-sizing: border-box;
 }
 
-.view-height {
-    min-height: 85vh;
+body {
+    font-family: 'Baloo Da 2', cursive;
 }
+
+main { padding: 4rem 0; }

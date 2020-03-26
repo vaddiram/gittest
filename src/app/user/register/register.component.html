@@ -1,22 +1,66 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <form class="border p-3">
+      <form class="border p-3" [formGroup]="signupForm" (ngSubmit)="onRegistrationFormSubmit()">
         <h3 class="text-center text-uppercase font-italic mb-3">Registration Form</h3>
         <div class="form-group">
           <label for="email">Email address:</label>
-          <input type="email" class="form-control" placeholder="Enter email" id="email">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Enter email"
+            id="email"
+            formControlName="email"
+          >
+          <div class="text-danger">
+            <span
+              *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched">
+                Email Required.
+            </span>
+          </div>
         </div>
         <div class="form-group">
           <label for="pwd">Password:</label>
-          <input type="password" class="form-control" placeholder="Enter password" id="password">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Enter password"
+            id="password"
+            formControlName="password"
+          >
+          <div class="text-danger">
+            <span
+              *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched">
+                Password Required.
+            </span>
+          </div>
         </div>
         <div class="form-group">
           <label for="pwd">Confirm Password:</label>
-          <input type="password" class="form-control" placeholder="Re enter the avobe Password" id="cpassword">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Re enter the avobe Password"
+            id="cpassword"
+            formControlName="cpassword"
+          >
+          <div class="text-danger">
+            <span
+              *ngIf="signupForm.get('cpassword').hasError('required') && signupForm.get('cpassword').touched">
+                Confirm Password Required.
+            </span>
+            <span
+              *ngIf="signupForm.errors?.misMatch">
+                Passwords does not match.
+            </span>
+          </div>
         </div>
-        <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+        <button
+          type="submit"
+          class="btn btn-info btn-block"
+          [disabled]="signupForm.invalid"
+        >Sign Up</button>
         <div class="form-group">
           <p class="text-center">Already Registered? <a routerLink="/login" class="font-italic">Click Here</a></p>
         </div>
@@ -24,4 +68,66 @@
     </div>
     <div class="col-md-3"></div>
   </div>
-</div>
+</div> -->
+
+<mat-grid-list cols="4" gutterSize="5px" rowHeight="1:2">
+  <mat-grid-tile></mat-grid-tile>
+  <mat-grid-tile [colspan]="2">
+    <form [formGroup]="signupForm" (ngSubmit)="onRegistrationFormSubmit()">
+      <h2 class="formHeading">Registration Form</h2>
+
+      <!-- Email field -->
+      <mat-form-field>
+        <input
+          matInput
+          type="email"
+          placeholder="Email address"
+          formControlName="email"
+          [errorStateMatcher]="matcher"
+        >
+        <mat-error *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('email').hasError('email') && signupForm.get('email').touched">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password field -->
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          [errorStateMatcher]="matcher"
+        >
+        <mat-error *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Confirm Password field -->
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Confirm Password"
+          formControlName="cpassword"
+          [errorStateMatcher]="matcher"
+        >
+        <mat-error *ngIf="signupForm.get('cpassword').hasError('required') && signupForm.get('cpassword').touched">
+          Confirm password is required
+        </mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="signupForm.errors?.misMatch">
+        Passwords does not match
+      </mat-error>
+      <button mat-flat-button type="submit" color="primary" [disabled]="!signupForm.valid"> Sign In</button>
+      <div class="toggle-form-link">
+        <p>Already have an account? <a routerLink="/login">Click Here</a></p>
+      </div>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>

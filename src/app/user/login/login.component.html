@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <form class="border p-3">
+      <form class="border p-3" [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
         <h3 class="text-center text-uppercase font-italic mb-3">Login Form</h3>
         <div class="form-group">
           <label for="email">Email address:</label>
