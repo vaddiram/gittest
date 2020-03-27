@@ -9,7 +9,7 @@ body {
     font-family: 'Baloo Da 2', cursive;
 }
 
-main { padding: 4rem 0; }
+main { padding: 2rem 0; }
 
 mat-grid-tile form,
 mat-grid-tile form mat-form-field,
