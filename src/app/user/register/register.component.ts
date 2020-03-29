@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   public signupForm: FormGroup;
-  public serverError: string;
-
+  
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
@@ -29,12 +28,12 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegistrationFormSubmit() {
-    const userCredentials = {
+    const newUser = {
       email: this.signupForm.value.email,
       password: this.signupForm.value.password
     }
 
-    this._authService.signUp(userCredentials).subscribe(
+    this._authService.signUp(newUser).subscribe(
       (res) => {
         if (res.isRegistered) {
           this._snackBar.open(res.msg, "", { duration: 3000 });
@@ -45,7 +44,7 @@ export class RegisterComponent implements OnInit {
         }
       },
       (error) => {
-        this._snackBar.open("ERROR: In connecting to the server", "", { duration: 2000 });
+        this._snackBar.open("ERROR: In connecting to the server", "", { duration: 3000 });
         console.error(error);
       }
     );

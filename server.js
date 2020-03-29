@@ -2,6 +2,7 @@ const express = require("express");
 let app = express();
 let bodyparser = require("body-parser");
 const cors = require("cors");
+const expressJwt = require('express-jwt');
 const authRouts = require("./routes/auth")
 const userRouts = require("./routes/user");
 
@@ -18,5 +19,8 @@ app.use(cors({
 
 app.use("/auth", authRouts);
 app.use("/user", userRouts);
+
+app.use(expressJwt({secret: "claims-app-secret"}).unless({path: ["/auth/register", "/auth/signin"]}));
+
 
 app.listen(PORT, () => console.log("Server started at http://localhost:" + PORT));

@@ -11,7 +11,19 @@ export class AuthService {
 
   constructor(private _http: HttpClient) { }
 
-  signUp(userCredentials: Credentials): Observable<any> {
-    return this._http.post(this.baseURL + "register", userCredentials);
+  signUp(newUser: Credentials): Observable<any> {
+    return this._http.post(this.baseURL + "register", newUser);
+  }
+
+  signIn(userCredentials: Credentials): Observable<any> {
+    return this._http.post<{ token: string }>(this.baseURL + "signin", userCredentials);
+  }
+
+  logout() {
+    localStorage.removeItem('access_token');
+  }
+
+  public get loggedIn(): boolean {
+    return (localStorage.getItem('access_token') !== null);
   }
 }

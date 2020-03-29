@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // External Modules
 import { ReactiveFormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
 
 // Angular Meterial Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,6 +29,13 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
+// Guards
+import { AuthGuard } from './guards/auth.guard';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +52,18 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: [
+
+        ],
+        blacklistedRoutes: [
+          "http://localhost:5000/auth/register",
+          "http://localhost:5000/auth/login"
+        ]
+      }
+    }),
     MatToolbarModule,
     MatListModule,
     MatButtonModule,
@@ -53,7 +73,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSnackBarModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
