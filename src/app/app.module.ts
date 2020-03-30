@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,7 @@ import { UserHomeComponent } from './user/user-home/user-home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { ClaimsFormComponent } from './user/claims-form/claims-form.component';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -36,7 +38,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
-import { ClaimsFormComponent } from './user/claims-form/claims-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -51,6 +52,9 @@ export function tokenGetter() {
     PageNotFoundComponent,
     HeaderComponent,
     FooterComponent,
+    ClaimsFormComponent
+  ],
+  entryComponents: [
     ClaimsFormComponent
   ],
   imports: [
@@ -82,7 +86,8 @@ export function tokenGetter() {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatBottomSheetModule
   ],
   providers: [
     AuthService,

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material';
+import { ClaimsFormComponent } from '../claims-form/claims-form.component';
 
 const CLAIMS_DATA: any[] = [
   {policyNo: 1, name: "Prasad Babu", totalExpenses: 100, currentStatus: "Pending"},
@@ -18,13 +20,18 @@ export class UserHomeComponent implements OnInit {
   public searchForm: FormGroup;
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
     this.searchForm = this._fb.group({
       email: [null, [Validators.email, Validators.required]]
     });
+  }
+
+  openClaimsForm(): void {
+    this._bottomSheet.open(ClaimsFormComponent);
   }
 
 }

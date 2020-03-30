@@ -3,7 +3,7 @@
   <mat-grid-tile [colspan]="6" class="content">
     <div>
       <div class="claimFormBtn">
-        <button mat-raised-button (click)="openBottomSheet()">Add Claim</button>
+        <button mat-raised-button (click)="openClaimsForm()">Add New Claim</button>
       </div>
       <mat-card style="margin-bottom: 10px;">
         <form [formGroup]="searchForm" (ngSubmit)="onSearchFormSubmit()" class="searchForm">

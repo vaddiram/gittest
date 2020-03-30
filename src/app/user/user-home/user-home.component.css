@@ -13,3 +13,13 @@ table {
 .content div {
     width: 100%;
 }
+
+.claimFormBtn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.claimFormBtn button {
+    display: block;
+    margin-left: auto;
+}
