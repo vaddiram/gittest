@@ -19,8 +19,10 @@
   <mat-toolbar color="primary" class="main-nav">
     <div>CLAIMS APP</div>
     <div>
-      <a mat-button [routerLink]="'/register'" routerLinkActive="active-nav-link">Register</a>
-      <a mat-button [routerLink]="'/login'" routerLinkActive="active-nav-link">Login</a>
+      <a mat-button routerLink="/register" routerLinkActive="active-nav-link" *ngIf="!_authService.loggedIn">Register</a>
+      <a mat-button routerLink="/login" routerLinkActive="active-nav-link" *ngIf="!_authService.loggedIn">Login</a>
+      <button mat-button routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn">{{ _authService.currentUser }}</button>
+      <button mat-button (click)="logout()" routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn">Logout</button>
     </div>
  </mat-toolbar>
 </header>

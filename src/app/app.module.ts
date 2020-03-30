@@ -14,6 +14,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
+import { ClaimsFormComponent } from './user/claims-form/claims-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -44,7 +50,8 @@ export function tokenGetter() {
     UserHomeComponent,
     PageNotFoundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ClaimsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +77,12 @@ export function tokenGetter() {
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [
     AuthService,

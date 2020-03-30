@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces/credentials';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,14 @@ export class AuthService {
 
   public get loggedIn(): boolean {
     return (localStorage.getItem('access_token') !== null);
+  }
+
+  public get currentUser(): string {
+    try {
+      let tokenInfo = jwt_decode(localStorage.getItem('access_token'));
+      return tokenInfo.user;
+    } catch(error){
+      console.log(error);
+    }
   }
 }

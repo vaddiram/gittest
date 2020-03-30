@@ -41,3 +41,14 @@ mat-grid-tile form {
 .toggle-form-link p a {
     font-style: italic;
 }
+
+.searchForm {
+    display: flex;
+    border: none;
+    padding: 0;
+    align-items: center;
+}
+
+.searchForm mat-form-field {
+    padding: 0 10px;
+}
