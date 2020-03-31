@@ -30,7 +30,7 @@ export class ClaimsFormComponent implements OnInit {
       detailsOfHospitalization: this._fb.group({
         nameOfHospital: ["", [Validators.required]],
         roomCategory: ["", [Validators.required]],
-        hospitalizationDueTo: ["", [Validators.required]],
+        hospitalizationDueTo: [""],
         injuryCause: ["", [Validators.required]]
       }),
       detailsOfClaim: this._fb.group({
@@ -55,7 +55,7 @@ export class ClaimsFormComponent implements OnInit {
   }
 
   onClaimFormSubmit(){
-
+    console.log(JSON.stringify(this.claimForm.value));
   }
 
 }

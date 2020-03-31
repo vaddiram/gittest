@@ -108,26 +108,26 @@
       <mat-radio-button value="illness">Illness</mat-radio-button>
       <mat-radio-button value="maternity">Maternity</mat-radio-button>
     </mat-radio-group>
-    
-    <!-- <mat-error
-      *ngIf="claimForm.get('detailsOfHospitalization.hospitalizationDueTo').hasError('required') && claimForm.get('detailsOfHospitalization.hospitalizationDueTo').touched">
-      Hospitalization due to is required
-    </mat-error> -->
-    <mat-form-field>
+    <mat-form-field *ngIf="claimForm.get('detailsOfHospitalization.hospitalizationDueTo').value === 'injury'; else elseBlock">
       <mat-label>If injury give cause</mat-label>
       <mat-select
         formControlName="injuryCause"
-        [errorStateMatcher]="matcher"
       >
         <mat-option value="self inflicted">Self inflicted</mat-option>
         <mat-option value="road traffic accident">Road Traffic Accident</mat-option>
         <mat-option value="substance abuse / alcohol consumption">Substance Abuse / Alcohol Consumption</mat-option>
       </mat-select>
-      <mat-error
-        *ngIf="claimForm.get('detailsOfHospitalization.injuryCause').hasError('required') && claimForm.get('detailsOfHospitalization.injuryCause').touched">
-        Injury cause is required
-      </mat-error>
     </mat-form-field>
+    <ng-template #elseBlock>
+      <mat-form-field>
+        <mat-label>If injury give cause</mat-label>
+        <mat-select
+          formControlName="injuryCause"
+        >
+          <mat-option value="na">NA</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-template>
   </div>
 
   <h3>DETAILS OF CLAIM</h3>
@@ -256,7 +256,7 @@
   </div>
 
   <div class="claimFormBtns">
-    <button mat-flat-button type="submit" color="primary" [disabled]="!claimForm.valid">Add Claim</button>
-    <button mat-flat-button type="button" color="primary" (click)="openLink($event)">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" [disabled]="!claimForm.valid">{{ data.policyNo === null ? "Add Claim" : "Update" }}</button>
+    <button mat-flat-button type="button" color="primary" (click)="openLink($event)" *ngIf="data.policyNo !== null">Cancel</button>
   </div>
 </form>
