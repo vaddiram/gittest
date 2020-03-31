@@ -1,21 +1,262 @@
-<mat-nav-list>
-  <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
-    <span mat-line>Google Keep</span>
-    <span mat-line>Add to a note</span>
-  </a>
+<form [formGroup]="claimForm" (ngSubmit)="onClaimFormSubmit()">
+  <!-- <h2 class="formHeading">Claim Form</h2> -->
 
-  <a href="https://docs.google.com/" mat-list-item (click)="openLink($event)">
-    <span mat-line>Google Docs</span>
-    <span mat-line>Embed in a document</span>
-  </a>
+  <h3>DETAILS OF PRIMARY INSURED</h3>
+  <div formGroupName="detailsOfPrimaryInsured">
+    <mat-form-field>
+      <mat-label>Policy No.</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="policyNo"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsured.policyNo').hasError('required') && claimForm.get('detailsOfPrimaryInsured.policyNo').touched">
+        Policy No. is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Sl. No/ Certificate no.</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="certificateNo"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsured.certificateNo').hasError('required') && claimForm.get('detailsOfPrimaryInsured.certificateNo').touched">
+        Sl. No/ Certificate no. is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Company/ TPA ID No</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="company"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsured.company').hasError('required') && claimForm.get('detailsOfPrimaryInsured.company').touched">
+        Company/ TPA ID No is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsured.name').hasError('required') && claimForm.get('detailsOfPrimaryInsured.name').touched">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <textarea
+        matInput
+        formControlName="address"
+        [errorStateMatcher]="matcher"
+      ></textarea>
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsured.address').hasError('required') && claimForm.get('detailsOfPrimaryInsured.address').touched">
+        Address is required
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-  <a href="https://plus.google.com/" mat-list-item (click)="openLink($event)">
-    <span mat-line>Google Plus</span>
-    <span mat-line>Share with your friends</span>
-  </a>
+  <h3>DETAILS OF HOSPITALIZATION</h3>
+  <div formGroupName="detailsOfHospitalization">
+    <mat-form-field>
+      <mat-label>Name of Hospital where Admited</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="nameOfHospital"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfHospitalization.nameOfHospital').hasError('required') && claimForm.get('detailsOfHospitalization.nameOfHospital').touched">
+        Hospital Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Room Category occupied</mat-label>
+      <mat-select
+        formControlName="roomCategory"
+        [errorStateMatcher]="matcher"
+      >
+        <mat-option value="day care">Day care</mat-option>
+        <mat-option value="single occupancy">Single occupancy</mat-option>
+        <mat-option value="twin sharing">Twin sharing</mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="claimForm.get('detailsOfHospitalization.roomCategory').hasError('required') && claimForm.get('detailsOfHospitalization.roomCategory').touched">
+        Room Category is required
+      </mat-error>
+    </mat-form-field>
+    <mat-label class="radioBtnLbl">Hospitalization due to</mat-label>
+    <mat-radio-group
+      aria-label="Select an option"
+      formControlName="hospitalizationDueTo"
+    >
+      <mat-radio-button value="injury">Injury</mat-radio-button>
+      <mat-radio-button value="illness">Illness</mat-radio-button>
+      <mat-radio-button value="maternity">Maternity</mat-radio-button>
+    </mat-radio-group>
+    
+    <!-- <mat-error
+      *ngIf="claimForm.get('detailsOfHospitalization.hospitalizationDueTo').hasError('required') && claimForm.get('detailsOfHospitalization.hospitalizationDueTo').touched">
+      Hospitalization due to is required
+    </mat-error> -->
+    <mat-form-field>
+      <mat-label>If injury give cause</mat-label>
+      <mat-select
+        formControlName="injuryCause"
+        [errorStateMatcher]="matcher"
+      >
+        <mat-option value="self inflicted">Self inflicted</mat-option>
+        <mat-option value="road traffic accident">Road Traffic Accident</mat-option>
+        <mat-option value="substance abuse / alcohol consumption">Substance Abuse / Alcohol Consumption</mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="claimForm.get('detailsOfHospitalization.injuryCause').hasError('required') && claimForm.get('detailsOfHospitalization.injuryCause').touched">
+        Injury cause is required
+      </mat-error>
+    </mat-form-field>
+  </div>
 
-  <a href="https://hangouts.google.com/" mat-list-item (click)="openLink($event)">
-    <span mat-line>Google Hangouts</span>
-    <span mat-line>Show to your coworkers</span>
-  </a>
-</mat-nav-list>
+  <h3>DETAILS OF CLAIM</h3>
+  <div formGroupName="detailsOfClaim">
+    <mat-form-field>
+      <mat-label>Pre-hospitalization expenses</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="preHospitalizationExp"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfClaim.preHospitalizationExp').hasError('required') && claimForm.get('detailsOfClaim.preHospitalizationExp').touched">
+        Pre-hospitalization expenses is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Post-hospitalization expenses</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="postHospitalizationExp"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfClaim.postHospitalizationExp').hasError('required') && claimForm.get('detailsOfClaim.postHospitalizationExp').touched">
+        Post-hospitalization expenses is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Ambulance Charges</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="ambulanceCharges"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfClaim.ambulanceCharges').hasError('required') && claimForm.get('detailsOfClaim.ambulanceCharges').touched">
+        Ambulance Charges is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Hospitalization expenses</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="hospitalizationExp"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfClaim.hospitalizationExp').hasError('required') && claimForm.get('detailsOfClaim.hospitalizationExp').touched">
+        Hospitalization expenses is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <h3>DETAILS OF PRIMARY INSURED’S BANK ACCOUNT</h3>
+  <div formGroupName="detailsOfPrimaryInsuredBankAccount">
+    <mat-form-field>
+      <mat-label>PAN</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="pan"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsuredBankAccount.pan').hasError('required') && claimForm.get('detailsOfPrimaryInsuredBankAccount.pan').touched">
+        PAN number is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Account Number</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="accountNumber"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsuredBankAccount.accountNumber').hasError('required') && claimForm.get('detailsOfPrimaryInsuredBankAccount.accountNumber').touched">
+        Account Number is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Bank Name and Branch</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="bankName"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsuredBankAccount.bankName').hasError('required') && claimForm.get('detailsOfPrimaryInsuredBankAccount.bankName').touched">
+        Bank Name and Branch is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cheque / DD Payable detail</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="cheque"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsuredBankAccount.cheque').hasError('required') && claimForm.get('detailsOfPrimaryInsuredBankAccount.cheque').touched">
+        Cheque / DD Payable detail is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>IFSC Code</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="ifsc"
+        [errorStateMatcher]="matcher"
+      >
+      <mat-error
+        *ngIf="claimForm.get('detailsOfPrimaryInsuredBankAccount.ifsc').hasError('required') && claimForm.get('detailsOfPrimaryInsuredBankAccount.ifsc').touched">
+        IFSC Code is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="claimFormBtns">
+    <button mat-flat-button type="submit" color="primary" [disabled]="!claimForm.valid">Add Claim</button>
+    <button mat-flat-button type="button" color="primary" (click)="openLink($event)">Cancel</button>
+  </div>
+</form>

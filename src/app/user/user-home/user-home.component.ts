@@ -30,8 +30,10 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  openClaimsForm(): void {
-    this._bottomSheet.open(ClaimsFormComponent);
+  openClaimsForm(policyNo): void {
+    this._bottomSheet.open(ClaimsFormComponent, {
+      data: { policyNo }
+    });
   }
 
 }

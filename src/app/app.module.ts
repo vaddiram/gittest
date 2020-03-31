@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatRadioModule } from '@angular/material/radio';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -87,7 +88,8 @@ export function tokenGetter() {
     MatNativeDateModule,
     MatCardModule,
     MatSelectModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatRadioModule
   ],
   providers: [
     AuthService,

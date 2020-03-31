@@ -3,7 +3,7 @@
   <mat-grid-tile [colspan]="6" class="content">
     <div>
       <div class="claimFormBtn">
-        <button mat-raised-button (click)="openClaimsForm()">Add New Claim</button>
+        <button mat-raised-button (click)="openClaimsForm(null)">Add New Claim</button>
       </div>
       <mat-card style="margin-bottom: 10px;">
         <form [formGroup]="searchForm" (ngSubmit)="onSearchFormSubmit()" class="searchForm">
@@ -65,7 +65,7 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let claim">
-                <button mat-flat-button color="primary" (click)="editClaim(claim.policyNo)">Edit</button>
+                <button mat-flat-button color="primary" (click)="openClaimsForm(claim.policyNo)">Edit</button>
                 <button mat-flat-button color="warn" (click)="deleteClaim(claim.policyNo)" class="deleteBtn">Delete</button>
                 <button mat-flat-button color="accent" (click)="showHistory(claim.policyNo)">History</button>
               </td>
