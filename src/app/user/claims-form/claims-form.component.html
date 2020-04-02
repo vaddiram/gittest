@@ -256,7 +256,7 @@
   </div>
 
   <div class="claimFormBtns">
-    <button mat-flat-button type="submit" color="primary" [disabled]="!claimForm.valid">{{ data.policyNo === null ? "Add Claim" : "Update" }}</button>
-    <button mat-flat-button type="button" color="primary" (click)="openLink($event)" *ngIf="data.policyNo !== null">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" [disabled]="!claimForm.valid">{{ data.id === null ? "Add Claim" : "Update" }}</button>
+    <button mat-flat-button type="button" color="primary" (click)="openLink($event)" *ngIf="data.id !== null">Cancel</button>
   </div>
 </form>

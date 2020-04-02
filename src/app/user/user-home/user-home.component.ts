@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material';
 import { ClaimsFormComponent } from '../claims-form/claims-form.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 const CLAIMS_DATA: any[] = [
-  {policyNo: 1, name: "Prasad Babu", totalExpenses: 100, currentStatus: "Pending"},
-  {policyNo: 2, name: "Manikanta", totalExpenses: 400, currentStatus: "Aproved"},
-  {policyNo: 3, name: "Ravi Kiran", totalExpenses: 600, currentStatus: "Aproved"},
+  {id: 1, policyNo: 111, name: "Prasad Babu", totalExpenses: 100, currentStatus: "Pending"},
+  {id: 2, policyNo: 222, name: "Manikanta", totalExpenses: 400, currentStatus: "Aproved"},
+  {id: 3, policyNo: 333, name: "Ravi Kiran", totalExpenses: 600, currentStatus: "Aproved"},
 ];
 
 @Component({
@@ -21,18 +23,24 @@ export class UserHomeComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _bottomSheet: MatBottomSheet
-  ) { }
-
-  ngOnInit() {
+    private _bottomSheet: MatBottomSheet,
+    private _authService: AuthService,
+    private _userService: UserService,
+  ) {
     this.searchForm = this._fb.group({
       email: [null, [Validators.email, Validators.required]]
     });
   }
 
-  openClaimsForm(policyNo): void {
+  ngOnInit() {
+    this._userService.getAllClaims(this._authService.currentUser).subscribe(
+      user => console.log(user)
+    );
+  }
+
+  openClaimsForm(id): void {
     this._bottomSheet.open(ClaimsFormComponent, {
-      data: { policyNo }
+      data: { id }
     });
   }
 

@@ -65,9 +65,9 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let claim">
-                <button mat-flat-button color="primary" (click)="openClaimsForm(claim.policyNo)">Edit</button>
-                <button mat-flat-button color="warn" (click)="deleteClaim(claim.policyNo)" class="deleteBtn">Delete</button>
-                <button mat-flat-button color="accent" (click)="showHistory(claim.policyNo)">History</button>
+                <button mat-flat-button color="primary" (click)="openClaimsForm(claim.id)">Edit</button>
+                <button mat-flat-button color="warn" (click)="deleteClaim(claim.id)" class="deleteBtn">Delete</button>
+                <button mat-flat-button color="accent" (click)="showHistory(claim.id)">History</button>
               </td>
             </ng-container>
           
