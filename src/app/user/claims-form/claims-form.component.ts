@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material';
+import { MatBottomSheetRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,6 +18,7 @@ export class ClaimsFormComponent implements OnInit {
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _userService: UserService,
+    private _snackBar: MatSnackBar,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) {
     this.claimForm = this._fb.group({
@@ -51,7 +52,14 @@ export class ClaimsFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    if(this.data.id !== null) {
+      this._userService.getSingleClaim(this.data.id).subscribe(
+        claimData => {
+          // console.log(claimData);
+          this.claimForm.setValue(claimData);
+        }
+      );
+    }
   }
 
   openLink(event: MouseEvent): void {
@@ -60,9 +68,30 @@ export class ClaimsFormComponent implements OnInit {
   }
 
   onClaimFormSubmit(){
-    this._userService.addClaim({ ...this.claimForm.value, user: this._authService.currentUser }).subscribe(
-      res => console.log(res)
-    )
+    if(this.data.id === null) {
+      let dt = new Date();
+      let dtStr = dt.getMonth() + 1 + "-" + dt.getDate() + "-" + dt.getFullYear();
+
+      this._userService.addClaim({
+        ...this.claimForm.value,
+        creationDate: dtStr,
+        status: "Pending",
+        user: this._authService.currentUser
+      }).subscribe(
+        res => {
+          if(res.inserted) {
+            this._snackBar.open(res.msg, "", { duration: 3000 });
+            this._bottomSheetRef.dismiss();
+          }
+        },
+        error => {
+          this._snackBar.open("ERROR: In saving claim", "", { duration: 3000 });
+          console.error(error);
+        }
+      );
+    } else {
+
+    }
   }
 
 }

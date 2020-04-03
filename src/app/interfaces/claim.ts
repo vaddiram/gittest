@@ -25,5 +25,7 @@ export interface Claim {
         cheque: string,
         ifsc: string
     },
+    creationDate: string,
+    status: string,
     user: string
 }

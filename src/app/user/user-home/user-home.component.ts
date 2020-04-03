@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatBottomSheet } from '@angular/material';
+import { MatBottomSheet, MatSnackBar } from '@angular/material';
 import { ClaimsFormComponent } from '../claims-form/claims-form.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,7 +18,7 @@ const CLAIMS_DATA: any[] = [
 })
 export class UserHomeComponent implements OnInit {
   public displayColumns: string[] = ["policyNo", "name", "totalExpenses", "currentStatus", "action"];
-  public dataSource = CLAIMS_DATA;
+  public dataSource: any[] = [];
   public searchForm: FormGroup;
 
   constructor(
@@ -26,6 +26,7 @@ export class UserHomeComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private _authService: AuthService,
     private _userService: UserService,
+    private _snackBar: MatSnackBar
   ) {
     this.searchForm = this._fb.group({
       email: [null, [Validators.email, Validators.required]]
@@ -34,7 +35,13 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit() {
     this._userService.getAllClaims(this._authService.currentUser).subscribe(
-      user => console.log(user)
+      claims => {
+        this.dataSource = claims;
+      },
+      error => {
+        this._snackBar.open("ERROR: In selecting claims", "", { duration: 3000 });
+        console.error(error);
+      }
     );
   }
 

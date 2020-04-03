@@ -19,6 +19,11 @@ export class UserService {
   }
 
   addClaim(claimData: Claim): Observable<any> {
+    console.log(claimData);
     return this._http.post(this.baseURL + "addClaim", claimData);
+  }
+
+  getSingleClaim(id: string): Observable<any> {
+    return this._http.get(this.baseURL + "singleClaim/" + id);
   }
 }
