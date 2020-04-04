@@ -6,16 +6,28 @@
         <button mat-raised-button (click)="openClaimsForm(null)">Add New Claim</button>
       </div>
       <mat-card style="margin-bottom: 10px;">
-        <form [formGroup]="searchForm" (ngSubmit)="onSearchFormSubmit()" class="searchForm">
+        <form [formGroup]="searchForm" #formDirective="ngForm" (ngSubmit)="onSearchFormSubmit(formDirective)" class="searchForm">
           <mat-form-field>
             <mat-label>Creation Date</mat-label>
-            <input matInput [matDatepicker]="picker">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="creationDate"
+              [errorStateMatcher]="matcher"
+            >
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-error
+              *ngIf="searchForm.get('creationDate').hasError('required') && searchForm.get('creationDate').touched">
+              Creation Date is required
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Status</mat-label>
-            <mat-select>
+            <mat-select
+              formControlName="status"
+              [errorStateMatcher]="matcher"
+            >
               <mat-option value="pending">
                 Pending
               </mat-option>
@@ -26,10 +38,23 @@
                 Rejected
               </mat-option>
             </mat-select>
+            <mat-error
+              *ngIf="searchForm.get('status').hasError('required') && searchForm.get('status').touched">
+              Please select status
+            </mat-error>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Name</mat-label>
-            <input matInput type="text">
+            <input
+              matInput
+              type="text"
+              formControlName="name"
+              [errorStateMatcher]="matcher"
+            >
+            <mat-error
+              *ngIf="searchForm.get('name').hasError('required') && searchForm.get('name').touched">
+              Name is required
+            </mat-error>
           </mat-form-field>
           <div><button mat-flat-button type="submit" color="primary">Search</button></div>
         </form>

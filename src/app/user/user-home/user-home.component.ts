@@ -20,10 +20,12 @@ export class UserHomeComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private _authService: AuthService,
     private _userService: UserService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {
     this.searchForm = this._fb.group({
-      email: [null, [Validators.email, Validators.required]]
+      creationDate: ["", [Validators.required]],
+      status: ["", [Validators.required]],
+      name: ["", [Validators.required]]
     });
   }
 
@@ -47,6 +49,18 @@ export class UserHomeComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  onSearchFormSubmit(formDirective) {
+    let searchData = {
+      date: this.searchForm.value.creationDate.getMonth() + 1 + "-" + this.searchForm.value.creationDate.getDate() + "-" + this.searchForm.value.creationDate.getFullYear(),
+      status: this.searchForm.value.status,
+      name: this.searchForm.value.name
+    }
+
+    console.log(searchData);
+    formDirective.resetForm();
+    this.searchForm.reset();
   }
 
 }
