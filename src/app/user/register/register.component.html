@@ -73,6 +73,7 @@
 <mat-grid-list cols="4" gutterSize="5px" rowHeight="500px">
   <mat-grid-tile></mat-grid-tile>
   <mat-grid-tile [colspan]="2">
+    <mat-card>
     <form [formGroup]="signupForm" (ngSubmit)="onRegistrationFormSubmit()">
       <h2 class="formHeading">Registration Form</h2>
 
@@ -128,6 +129,7 @@
         <p>Already have an account? <a routerLink="/login">Click Here</a></p>
       </div>
     </form>
+    </mat-card>
   </mat-grid-tile>
   <mat-grid-tile></mat-grid-tile>
 </mat-grid-list>

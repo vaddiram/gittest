@@ -61,4 +61,23 @@ _router.get("/singleClaim/:id", (req, res) => {
     });
 });
 
+_router.put("/updateClaim/:id", (req, res) => {
+    let detailsOfPrimaryInsured = JSON.stringify(req.body.detailsOfPrimaryInsured);
+    let detailsOfHospitalization = JSON.stringify(req.body.detailsOfHospitalization);
+    let detailsOfClaim = JSON.stringify(req.body.detailsOfClaim);
+    let detailsOfPrimaryInsuredBankAccount = JSON.stringify(req.body.detailsOfPrimaryInsuredBankAccount);
+
+    con.query("UPDATE claims SET detailsofprimaryinsured = ?, detailsofhospitalization= ?, detailsofclaim = ?, detailsofprimaryinsuredbankaccount = ? WHERE id = ?", [detailsOfPrimaryInsured, detailsOfHospitalization, detailsOfClaim, detailsOfPrimaryInsuredBankAccount, req.params.id], (error) => {
+        if (!error) {
+            res.send({
+                isUpdated: true,
+                msg: "Your claim updated successfully"
+            });
+        }
+        else {
+            res.send({ error: error });
+        }
+    });
+});
+
 module.exports = _router;

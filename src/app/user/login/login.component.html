@@ -25,44 +25,46 @@
 <mat-grid-list cols="4" gutterSize="5px" rowHeight="500px">
   <mat-grid-tile></mat-grid-tile>
   <mat-grid-tile [colspan]="2">
-    <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
-      <h2 class="formHeading">Login Form</h2>
+    <mat-card>
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
+        <h2 class="formHeading">Login Form</h2>
 
-      <!-- Email field -->
-      <mat-form-field>
-        <input
-          matInput
-          type="email"
-          placeholder="Email address"
-          formControlName="email"
-          [errorStateMatcher]="matcher"
-        >
-        <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
-          Email is required
-        </mat-error>
-        <mat-error *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').touched">
-          Please enter a valid email address
-        </mat-error>
-      </mat-form-field>
+        <!-- Email field -->
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            placeholder="Email address"
+            formControlName="email"
+            [errorStateMatcher]="matcher"
+          >
+          <mat-error *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').touched">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
 
-      <!-- Password field -->
-      <mat-form-field>
-        <input
-          matInput
-          type="password"
-          placeholder="Password"
-          formControlName="password"
-          [errorStateMatcher]="matcher"
-        >
-        <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
-          Password is required
-        </mat-error>
-      </mat-form-field>
-      <button mat-flat-button type="submit" color="primary" [disabled]="!loginForm.valid"> Sign In</button>
-      <div class="toggle-form-link">
-        <p>New User? <a routerLink="/register">Click Here</a></p>
-      </div>
-    </form>
+        <!-- Password field -->
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            [errorStateMatcher]="matcher"
+          >
+          <mat-error *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button type="submit" color="primary" [disabled]="!loginForm.valid"> Sign In</button>
+        <div class="toggle-form-link">
+          <p>New User? <a routerLink="/register">Click Here</a></p>
+        </div>
+      </form>
+    </mat-card>
   </mat-grid-tile>
   <mat-grid-tile></mat-grid-tile>
 </mat-grid-list>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-claims-form',
@@ -19,6 +20,7 @@ export class ClaimsFormComponent implements OnInit {
     private _authService: AuthService,
     private _userService: UserService,
     private _snackBar: MatSnackBar,
+    private _router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) {
     this.claimForm = this._fb.group({
@@ -64,7 +66,7 @@ export class ClaimsFormComponent implements OnInit {
 
   openLink(event: MouseEvent): void {
     this._bottomSheetRef.dismiss();
-    event.preventDefault();
+    // event.preventDefault();
   }
 
   onClaimFormSubmit(){
@@ -90,7 +92,18 @@ export class ClaimsFormComponent implements OnInit {
         }
       );
     } else {
-
+      this._userService.updateClaim(this.data.id, this.claimForm.value).subscribe(
+        res => {
+          if(res.isUpdated) {
+            this._snackBar.open(res.msg, "", { duration: 3000 });
+            this._bottomSheetRef.dismiss();
+          }
+        },
+        error => {
+          this._snackBar.open("ERROR: In saving claim", "", { duration: 3000 });
+          console.error(error);
+        }
+      );
     }
   }
 
