@@ -28,4 +28,8 @@ export class UserService {
   updateClaim(id: string, claimData: Claim): Observable<any> {
     return this._http.put(this.baseURL + "updateClaim/" + id, claimData);
   }
+
+  searchClaims(searchData: any): Observable<any> {
+    return this._http.post(this.baseURL + "search", searchData);
+  }
 }

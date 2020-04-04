@@ -55,10 +55,20 @@ export class UserHomeComponent implements OnInit {
     let searchData = {
       date: this.searchForm.value.creationDate.getMonth() + 1 + "-" + this.searchForm.value.creationDate.getDate() + "-" + this.searchForm.value.creationDate.getFullYear(),
       status: this.searchForm.value.status,
-      name: this.searchForm.value.name
+      name: this.searchForm.value.name,
+      user: this._authService.currentUser
     }
 
-    console.log(searchData);
+    this._userService.searchClaims(searchData).subscribe(
+      serachClaims => {
+        this.dataSource = serachClaims;
+      },
+      error => {
+        this._snackBar.open("ERROR: In selecting claims", "", { duration: 3000 });
+        console.error(error);
+      }
+    );
+
     formDirective.resetForm();
     this.searchForm.reset();
   }

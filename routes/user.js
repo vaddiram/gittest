@@ -5,15 +5,7 @@ const con = require("../db");
 _router.post("", (req, res) => {
     con.query("SELECT * FROM claims WHERE user = ?", [req.body.user], (error, rows) => {
         if (!error) {
-            let claims = rows.map(claim => (
-                {
-                    id: claim.id,
-                    policyNo: JSON.parse(claim.detailsofprimaryinsured).policyNo,
-                    name: JSON.parse(claim.detailsofprimaryinsured).name,
-                    totalExpenses: parseInt(JSON.parse(claim.detailsofclaim).preHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).postHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).ambulanceCharges) + parseInt(JSON.parse(claim.detailsofclaim).hospitalizationExp),
-                    currentStatus: claim.status
-                }
-            ));
+            let claims = convertToClaimsLoadData(rows);
             res.send(claims);
         }
         else {
@@ -79,5 +71,33 @@ _router.put("/updateClaim/:id", (req, res) => {
         }
     });
 });
+
+_router.post("/search", (req, res) => {
+    con.query("SELECT * FROM claims WHERE user = ?", [req.body.user], (error, rows) => {
+        // console.log(req.body.date, req.body.status, req.body.name);
+        if (!error) {
+            let filteredClaims = rows.filter(claim => {
+                return claim.creationdate === req.body.date && claim.status === req.body.status && JSON.parse(claim.detailsofprimaryinsured).name === req.body.name
+            });
+            let searchClaims = convertToClaimsLoadData(filteredClaims);
+            res.send(searchClaims);
+        }
+        else {
+            res.send({ error: error });
+        }
+    });
+});
+
+const convertToClaimsLoadData = rows => {
+    return rows.map(claim => (
+        {
+            id: claim.id,
+            policyNo: JSON.parse(claim.detailsofprimaryinsured).policyNo,
+            name: JSON.parse(claim.detailsofprimaryinsured).name,
+            totalExpenses: parseInt(JSON.parse(claim.detailsofclaim).preHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).postHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).ambulanceCharges) + parseInt(JSON.parse(claim.detailsofclaim).hospitalizationExp),
+            currentStatus: claim.status
+        }
+    ));
+}
 
 module.exports = _router;
