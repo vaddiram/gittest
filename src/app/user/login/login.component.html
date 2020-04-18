@@ -29,6 +29,15 @@
       <form [formGroup]="loginForm" (ngSubmit)="onLoginFormSubmit()">
         <h2 class="formHeading">Login Form</h2>
 
+        <mat-label class="radioBtnLbl">Slect your role</mat-label>
+        <mat-radio-group
+          aria-label="Select an option"
+          formControlName="role"
+        >
+          <mat-radio-button value="user">User</mat-radio-button>
+          <mat-radio-button value="admin">Admin</mat-radio-button>
+        </mat-radio-group>
+
         <!-- Email field -->
         <mat-form-field>
           <input

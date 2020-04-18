@@ -45,26 +45,55 @@ _router.post("/register", (req, res) => {
 });
 
 _router.post("/signin", (req, res) => {
-    console.log(req.body);
-    con.query("SELECT * FROM users WHERE email = ?", [req.body.email], (error, rows) => {
-        if (!error) {
-            if (rows.length > 0) {
-                let user = rows[0];
-                // Match password
-                bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
-                    if(err) throw err;
-
-                    if(isMatch) {
-                        let token = jwt.sign({ user: user.email }, "claims-app-secret", { expiresIn: "2h" });
+    // console.log(req.body.role);
+    if (req.body.role === "user") {
+        con.query("SELECT * FROM users WHERE email = ?", [req.body.email], (error, rows) => {
+            if (!error) {
+                if (rows.length > 0) {
+                    let user = rows[0];
+                    // Match password
+                    bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+                        if(err) throw err;
+    
+                        if(isMatch) {
+                            let token = jwt.sign(
+                                {
+                                    user: user.email,
+                                    role: "user"
+                                },
+                                "claims-app-secret", { expiresIn: "2h" }
+                            );
+                            res.send({ isLoggedIn: true, token: token });
+                        } else
+                            res.send({ isLoggedIn: false, msg: "Incorrect password" });
+                    });
+                } else
+                    res.send({ isLoggedIn: false, msg: "User does not exists" });
+            } else
+                res.send({ error: err });
+        });
+    } else {
+        con.query("SELECT * FROM admins WHERE email = ?", [req.body.email], (error, rows) => {
+            if (!error) {
+                if (rows.length > 0) {
+                    // Match password
+                    if (rows[0].password === req.body.password) {
+                        let token = jwt.sign(
+                            {
+                                user: rows[0].email,
+                                role: "admin"
+                            },
+                            "claims-app-secret", { expiresIn: "2h" }
+                        );
                         res.send({ isLoggedIn: true, token: token });
                     } else
                         res.send({ isLoggedIn: false, msg: "Incorrect password" });
-                });
+                } else
+                    res.send({ isLoggedIn: false, msg: "User does not exists" });
             } else
-                res.send({ isLoggedIn: false, msg: "User does not exists" });
-        } else
-            res.send({ error: err });
-    });
+                res.send({ error: err });
+        });
+    }
 });
 
 module.exports = _router;

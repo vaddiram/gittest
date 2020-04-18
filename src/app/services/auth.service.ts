@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Credentials } from '../interfaces/credentials';
-import * as jwt_decode from 'jwt-decode';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,10 @@ import * as jwt_decode from 'jwt-decode';
 export class AuthService {
   readonly baseURL: string = "http://localhost:5000/auth/";
 
-  constructor(private _http: HttpClient) { }
+  constructor(
+    private _http: HttpClient,
+    private _jwtHelperService: JwtHelperService,
+  ) { }
 
   signUp(newUser: Credentials): Observable<any> {
     return this._http.post(this.baseURL + "register", newUser);
@@ -30,7 +33,7 @@ export class AuthService {
 
   public get currentUser(): string {
     try {
-      let tokenInfo = jwt_decode(localStorage.getItem('access_token'));
+      let tokenInfo = this._jwtHelperService.decodeToken(localStorage.getItem('access_token'));
       return tokenInfo.user;
     } catch(error){
       console.log(error);

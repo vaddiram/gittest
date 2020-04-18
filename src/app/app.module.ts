@@ -39,6 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -53,7 +55,9 @@ export function tokenGetter() {
     PageNotFoundComponent,
     HeaderComponent,
     FooterComponent,
-    ClaimsFormComponent
+    ClaimsFormComponent,
+    AccessDeniedComponent,
+    AdminHomeComponent
   ],
   entryComponents: [
     ClaimsFormComponent
