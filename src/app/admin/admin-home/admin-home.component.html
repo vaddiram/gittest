@@ -1,3 +1,18 @@
-<p>
-  admin-home works!
-</p>
+<mat-sidenav-container style="height: 400px">
+  <mat-sidenav mode="side" opened>
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <a mat-button routerLink="/admin" routerLinkActive="active-nav-link">Claims</a>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <a mat-button routerLink="/admin/adduser" routerLinkActive="active-nav-link">Add User</a>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <a mat-button routerLink="/admin/removeuser" routerLinkActive="active-nav-link">Remove User</a>
+      </mat-list-item>
+    </mat-list>    
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

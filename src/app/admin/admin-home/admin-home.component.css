@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+}
+
+.deleteBtn {
+    margin: 0 5px;
+}
+
+/* .content {
+    border: 1px solid red;
+} */
+
+.content div {
+    width: 100%;
+}
+
+.claimFormBtn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.claimFormBtn button {
+    display: block;
+    margin-left: auto;
+}
+
+.mat-elevation-z8 { box-shadow: none; }
+
+.mat-list-item a {
+    width: 100%;
+    border: 1px solid red;
+    text-align: left;
+}

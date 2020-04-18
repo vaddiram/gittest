@@ -7,6 +7,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from './guards/auth.guard';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { ClaimsComponent } from './admin/claims/claims.component';
+import { AddUserComponent } from './admin/add-user/add-user.component';
+import { RemoveUserComponent } from './admin/remove-user/remove-user.component';
 
 const routes: Routes = [
   {
@@ -35,6 +38,11 @@ const routes: Routes = [
     },
     canActivate: [
       AuthGuard
+    ],
+    children: [
+      { path: "", component: ClaimsComponent },
+      { path: "adduser", component: AddUserComponent },
+      { path: "removeuser", component: RemoveUserComponent }
     ]
   },
   {

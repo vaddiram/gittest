@@ -21,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { ClaimsComponent } from './admin/claims/claims.component';
+import { AddUserComponent } from './admin/add-user/add-user.component';
+import { RemoveUserComponent } from './admin/remove-user/remove-user.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -57,7 +61,10 @@ export function tokenGetter() {
     FooterComponent,
     ClaimsFormComponent,
     AccessDeniedComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    ClaimsComponent,
+    AddUserComponent,
+    RemoveUserComponent
   ],
   entryComponents: [
     ClaimsFormComponent
@@ -94,7 +101,8 @@ export function tokenGetter() {
     MatCardModule,
     MatSelectModule,
     MatBottomSheetModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSidenavModule
   ],
   providers: [
     AuthService,
