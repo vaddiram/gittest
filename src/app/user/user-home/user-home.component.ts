@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatBottomSheet, MatSnackBar } from '@angular/material';
+import { MatBottomSheet, MatSnackBar, MatPaginator, MatTableDataSource } from '@angular/material';
 import { ClaimsFormComponent } from '../claims-form/claims-form.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,7 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserHomeComponent implements OnInit {
   public displayColumns: string[] = ["policyNo", "name", "totalExpenses", "currentStatus", "action"];
-  public dataSource: any[] = [];
+  public dataSource;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   public searchForm: FormGroup;
 
   constructor(
@@ -42,7 +43,8 @@ export class UserHomeComponent implements OnInit {
   loadClaims() {
     this._userService.getAllClaims(this._authService.currentUser).subscribe(
       claims => {
-        this.dataSource = claims;
+        this.dataSource = new MatTableDataSource<any>(claims);
+        this.dataSource.paginator = this.paginator;
       },
       error => {
         this._snackBar.open("ERROR: In selecting claims", "", { duration: 3000 });
@@ -64,7 +66,7 @@ export class UserHomeComponent implements OnInit {
         this.dataSource = serachClaims;
       },
       error => {
-        this._snackBar.open("ERROR: In selecting claims", "", { duration: 3000 });
+        this._snackBar.open("ERROR: In searching claims", "", { duration: 3000 });
         console.error(error);
       }
     );

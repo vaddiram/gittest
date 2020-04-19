@@ -40,7 +40,8 @@ const routes: Routes = [
       AuthGuard
     ],
     children: [
-      { path: "", component: ClaimsComponent },
+      { path: "", redirectTo: "/admin/claims", pathMatch: "full" },
+      { path: "claims", component: ClaimsComponent },
       { path: "adduser", component: AddUserComponent },
       { path: "removeuser", component: RemoveUserComponent }
     ]

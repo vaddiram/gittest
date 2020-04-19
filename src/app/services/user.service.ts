@@ -14,7 +14,7 @@ export class UserService {
   ) { }
 
   getAllClaims(user: string): Observable<any> {
-    return this._http.post(this.baseURL, { user });
+    return this._http.post(this.baseURL + "getAllClaims", { user });
   }
 
   addClaim(claimData: Claim): Observable<any> {

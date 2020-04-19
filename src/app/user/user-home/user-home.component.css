@@ -25,3 +25,16 @@ table {
 }
 
 .mat-elevation-z8 { box-shadow: none; }
+
+.approved, .pending, .rejected {
+    display: block;
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    width: 80px;
+    text-align: center;
+}
+
+.approved { background-color: #28a745; }
+.pending { background-color: #ffc107; }
+.rejected { background-color: #dc3545; }

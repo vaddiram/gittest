@@ -10,4 +10,8 @@ export class AdminService {
   readonly baseURL: string = "http://localhost:5000/admin/";
 
   constructor(private _http: HttpClient) { }
+
+  getAllUsersClaims(): Observable<any> {
+    return this._http.get(this.baseURL + "getAllUsersClaims");
+  }
 }

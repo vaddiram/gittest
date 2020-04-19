@@ -1,9 +1,10 @@
 const express = require("express");
 const _router = express.Router();
 const con = require("../db");
+const { convertToClaimsLoadData } = require("./helperfunctions");
 
-_router.post("", (req, res) => {
-    con.query("SELECT * FROM claims WHERE user = ?", [req.body.user], (error, rows) => {
+_router.post("/getAllClaims", (req, res) => {
+    con.query("SELECT * FROM claims WHERE user = ? ORDER BY creationdate DESC", [req.body.user], (error, rows) => {
         if (!error) {
             let claims = convertToClaimsLoadData(rows);
             res.send(claims);
@@ -87,17 +88,5 @@ _router.post("/search", (req, res) => {
         }
     });
 });
-
-const convertToClaimsLoadData = rows => {
-    return rows.map(claim => (
-        {
-            id: claim.id,
-            policyNo: JSON.parse(claim.detailsofprimaryinsured).policyNo,
-            name: JSON.parse(claim.detailsofprimaryinsured).name,
-            totalExpenses: parseInt(JSON.parse(claim.detailsofclaim).preHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).postHospitalizationExp) + parseInt(JSON.parse(claim.detailsofclaim).ambulanceCharges) + parseInt(JSON.parse(claim.detailsofclaim).hospitalizationExp),
-            currentStatus: claim.status
-        }
-    ));
-}
 
 module.exports = _router;

@@ -5,6 +5,7 @@ const cors = require("cors");
 const expressJwt = require('express-jwt');
 const authRouts = require("./routes/auth")
 const userRouts = require("./routes/user");
+const adminRouts = require("./routes/admin");
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,6 +20,7 @@ app.use(cors({
 
 app.use("/auth", authRouts);
 app.use("/user", userRouts);
+app.use("/admin", adminRouts);
 
 app.use(expressJwt({secret: "claims-app-secret"}).unless({path: ["/auth/register", "/auth/signin"]}));
 
