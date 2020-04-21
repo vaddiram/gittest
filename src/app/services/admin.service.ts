@@ -20,4 +20,12 @@ export class AdminService {
   searchClaims(searchData: any): Observable<any> {
     return this._http.post(this.baseURL + "search", searchData);
   }
+
+  approveClaim(claimId): Observable<any> {
+    return this._http.put(this.baseURL + "approve/" + claimId, { status: "Approved" });
+  }
+
+  declineClaim(claimId): Observable<any> {
+    return this._http.put(this.baseURL + "decline/" + claimId, { status: "Rejected" });
+  }
 }

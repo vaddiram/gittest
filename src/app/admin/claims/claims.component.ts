@@ -44,11 +44,31 @@ export class ClaimsComponent implements OnInit {
   }
 
   approveClaim(claimId) {
-    console.log(claimId);
+    this._adminService.approveClaim(claimId).subscribe(
+      res => {
+        if(res.isApproved) {
+          this.loadAllUsersClaims();
+        }
+      },
+      error => {
+        this._snackBar.open("ERROR: In approving claim", "", { duration: 3000 });
+        console.error(error);
+      }
+    );
   }
 
   declineClaim(claimId) {
-    console.log(claimId);
+    this._adminService.declineClaim(claimId).subscribe(
+      res => {
+        if(res.isRejected) {
+          this.loadAllUsersClaims();
+        }
+      },
+      error => {
+        this._snackBar.open("ERROR: In approving claim", "", { duration: 3000 });
+        console.error(error);
+      }
+    );
   }
 
   onSearchFormSubmit(formDirective) {

@@ -31,4 +31,26 @@ _router.post("/search", (req, res) => {
     });
 });
 
+_router.put("/approve/:id", (req, res) => {
+    con.query("UPDATE claims SET status = ? WHERE id = ?", [req.body.status, req.params.id], (error) => {
+        if (!error) {
+            res.send({ isApproved: true });
+        }
+        else {
+            res.send({ error: error });
+        }
+    });
+});
+
+_router.put("/decline/:id", (req, res) => {
+    con.query("UPDATE claims SET status = ? WHERE id = ?", [req.body.status, req.params.id], (error) => {
+        if (!error) {
+            res.send({ isRejected: true });
+        }
+        else {
+            res.send({ error: error });
+        }
+    });
+});
+
 module.exports = _router;
