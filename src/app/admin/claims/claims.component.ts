@@ -43,25 +43,31 @@ export class ClaimsComponent implements OnInit {
     );
   }
 
-  // onSearchFormSubmit(formDirective) {
-  //   let searchData = {
-  //     date: this.searchForm.value.creationDate.getMonth() + 1 + "-" + this.searchForm.value.creationDate.getDate() + "-" + this.searchForm.value.creationDate.getFullYear(),
-  //     status: this.searchForm.value.status,
-  //     name: this.searchForm.value.name,
-  //     user: this._authService.currentUser
-  //   }
+  approveClaim(claimId) {
+    console.log(claimId);
+  }
 
-  //   this._userService.searchClaims(searchData).subscribe(
-  //     serachClaims => {
-  //       this.dataSource = serachClaims;
-  //     },
-  //     error => {
-  //       this._snackBar.open("ERROR: In searching claims", "", { duration: 3000 });
-  //       console.error(error);
-  //     }
-  //   );
+  declineClaim(claimId) {
+    console.log(claimId);
+  }
 
-  //   formDirective.resetForm();
-  //   this.searchForm.reset();
-  // }
+  onSearchFormSubmit(formDirective) {
+    let searchData = {
+      policyNo: this.searchForm.value.policyNo,
+      userEmail: this.searchForm.value.userEmail
+    }
+
+    this._adminService.searchClaims(searchData).subscribe(
+      serachClaims => {
+        this.dataSource = serachClaims;
+      },
+      error => {
+        this._snackBar.open("ERROR: In searching claims", "", { duration: 3000 });
+        console.error(error);
+      }
+    );
+
+    formDirective.resetForm();
+    this.searchForm.reset();
+  }
 }

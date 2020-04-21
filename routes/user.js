@@ -16,11 +16,13 @@ _router.post("/getAllClaims", (req, res) => {
 });
 
 _router.post("/addClaim", (req, res) => {
+    let date = new Date(req.body.creationDate);
+    
     let detailsOfPrimaryInsured = JSON.stringify(req.body.detailsOfPrimaryInsured);
     let detailsOfHospitalization = JSON.stringify(req.body.detailsOfHospitalization);
     let detailsOfClaim = JSON.stringify(req.body.detailsOfClaim);
     let detailsOfPrimaryInsuredBankAccount = JSON.stringify(req.body.detailsOfPrimaryInsuredBankAccount);
-    let creationDate = req.body.creationDate;
+    let creationDate = date;
     let status = req.body.status;
     let user = req.body.user;
 
@@ -78,7 +80,9 @@ _router.post("/search", (req, res) => {
         // console.log(req.body.date, req.body.status, req.body.name);
         if (!error) {
             let filteredClaims = rows.filter(claim => {
-                return claim.creationdate === req.body.date && claim.status === req.body.status && JSON.parse(claim.detailsofprimaryinsured).name === req.body.name
+                let date = claim.creationdate.getMonth() + 1 + "-" + claim.creationdate.getDate() + "-" + claim.creationdate.getFullYear();
+                
+                return date === req.body.date && claim.status === req.body.status && JSON.parse(claim.detailsofprimaryinsured).name === req.body.name;
             });
             let searchClaims = convertToClaimsLoadData(filteredClaims);
             res.send(searchClaims);

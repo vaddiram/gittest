@@ -15,4 +15,20 @@ _router.get("/getAllUsersClaims", (req, res) => {
     });
 });
 
+_router.post("/search", (req, res) => {
+    con.query("SELECT * FROM claims WHERE user = ?", [req.body.user], (error, rows) => {
+        console.log(req.body.date, req.body.status, req.body.name);
+        // if (!error) {
+        //     let filteredClaims = rows.filter(claim => {
+        //         return claim.creationdate === req.body.date && claim.status === req.body.status && JSON.parse(claim.detailsofprimaryinsured).name === req.body.name
+        //     });
+        //     let searchClaims = convertToClaimsLoadData(filteredClaims);
+        //     res.send(searchClaims);
+        // }
+        // else {
+        //     res.send({ error: error });
+        // }
+    });
+});
+
 module.exports = _router;

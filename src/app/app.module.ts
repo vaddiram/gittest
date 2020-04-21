@@ -23,6 +23,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -104,7 +105,8 @@ export function tokenGetter() {
     MatBottomSheetModule,
     MatRadioModule,
     MatSidenavModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   providers: [
     AuthService,
