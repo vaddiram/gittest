@@ -38,5 +38,3 @@ table {
 .approved { background-color: #28a745; }
 .pending { background-color: #ffc107; }
 .rejected { background-color: #dc3545; }
-
-.material-icons { font-size: 21px; }

@@ -17,12 +17,12 @@
     </div>
   </nav> -->
   <mat-toolbar color="primary" class="main-nav">
-    <div>CLAIMS APP</div>
+    <div class="logo"><img src="../../../assets/logo.jpg" alt="Logo"></div>
     <div>
       <a mat-button routerLink="/register" routerLinkActive="active-nav-link" *ngIf="!_authService.loggedIn">Register</a>
       <a mat-button routerLink="/login" routerLinkActive="active-nav-link" *ngIf="!_authService.loggedIn">Login</a>
-      <button mat-button routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn">{{ _authService.currentUser }}</button>
-      <button mat-button (click)="logout()" routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn">Logout</button>
+      <button mat-button routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn"><mat-icon> email</mat-icon> {{ _authService.currentUser }}</button>
+      <button mat-button (click)="logout()" routerLinkActive="active-nav-link" *ngIf="_authService.loggedIn">Logout <mat-icon>logout</mat-icon></button>
     </div>
  </mat-toolbar>
 </header>

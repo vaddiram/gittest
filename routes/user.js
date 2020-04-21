@@ -76,7 +76,7 @@ _router.put("/updateClaim/:id", (req, res) => {
 });
 
 _router.post("/search", (req, res) => {
-    con.query("SELECT * FROM claims WHERE user = ?", [req.body.user], (error, rows) => {
+    con.query("SELECT * FROM claims WHERE user = ? ORDER BY creationdate DESC", [req.body.user], (error, rows) => {
         // console.log(req.body.date, req.body.status, req.body.name);
         if (!error) {
             let filteredClaims = rows.filter(claim => {

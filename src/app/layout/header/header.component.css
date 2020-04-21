@@ -1,13 +1,16 @@
-nav {
-    height: 10vh;
-}
-
 .main-nav {
     display: flex;
     justify-content: space-between;
+    height: 90px;
 }
 
 .active-nav-link {
     color: #fff;
     background-color: rgb(126, 76, 126)!important;
 }
+
+.main-nav .logo img {
+    display: block;
+    padding: 10px;
+}
+
