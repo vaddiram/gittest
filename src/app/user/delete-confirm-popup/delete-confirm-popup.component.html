@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>Are you sure you want to delete?</p>
+</div>
+<div mat-dialog-actions class="actionBtns">
+  <button mat-flat-button color="primary" (click)="onNoClick()">No</button>
+  <button mat-flat-button color="warn" (click)="deleteClaim(_data.id)">Yes</button>
+</div>

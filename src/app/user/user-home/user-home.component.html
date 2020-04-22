@@ -94,7 +94,7 @@
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let claim">
                 <button mat-flat-button color="primary" (click)="openClaimsForm(claim.id)"><mat-icon>edit</mat-icon> Edit</button>
-                <button mat-flat-button color="warn" (click)="deleteClaim(claim.id)" class="deleteBtn"><mat-icon>delete</mat-icon> Delete</button>
+                <button mat-flat-button color="warn" (click)="openDeleteConfirm(claim.id)" class="deleteBtn"><mat-icon>delete</mat-icon> Delete</button>
                 <button mat-flat-button color="accent" (click)="showHistory(claim.id)"><mat-icon>history</mat-icon> History</button>
               </td>
             </ng-container>

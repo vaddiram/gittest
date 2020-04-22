@@ -93,4 +93,9 @@ _router.post("/search", (req, res) => {
     });
 });
 
+_router.delete("/delete/:id", (req, res) => {
+    console.log(req.params.id);
+    res.send({msg: "From delete route"});
+});
+
 module.exports = _router;

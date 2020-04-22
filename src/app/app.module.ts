@@ -24,6 +24,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +48,7 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { ClaimsComponent } from './admin/claims/claims.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { RemoveUserComponent } from './admin/remove-user/remove-user.component';
+import { DeleteConfirmPopupComponent } from './user/delete-confirm-popup/delete-confirm-popup.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -66,10 +68,12 @@ export function tokenGetter() {
     AdminHomeComponent,
     ClaimsComponent,
     AddUserComponent,
-    RemoveUserComponent
+    RemoveUserComponent,
+    DeleteConfirmPopupComponent
   ],
   entryComponents: [
-    ClaimsFormComponent
+    ClaimsFormComponent,
+    DeleteConfirmPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +110,8 @@ export function tokenGetter() {
     MatRadioModule,
     MatSidenavModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,

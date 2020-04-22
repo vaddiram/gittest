@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatBottomSheet, MatSnackBar, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatBottomSheet, MatSnackBar, MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { ClaimsFormComponent } from '../claims-form/claims-form.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { DeleteConfirmPopupComponent } from '../delete-confirm-popup/delete-confirm-popup.component';
 
 @Component({
   selector: 'app-user-home',
@@ -21,7 +22,8 @@ export class UserHomeComponent implements OnInit {
     private _bottomSheet: MatBottomSheet,
     private _authService: AuthService,
     private _userService: UserService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public _dialog: MatDialog
   ) {
     this.searchForm = this._fb.group({
       creationDate: ["", [Validators.required]],
@@ -36,6 +38,13 @@ export class UserHomeComponent implements OnInit {
 
   openClaimsForm(id): void {
     this._bottomSheet.open(ClaimsFormComponent, {
+      data: { id }
+    });
+  }
+
+  openDeleteConfirm(id): void {
+    const dialogRef = this._dialog.open(DeleteConfirmPopupComponent, {
+      width: "300px",
       data: { id }
     });
   }

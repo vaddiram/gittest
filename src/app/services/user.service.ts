@@ -32,4 +32,8 @@ export class UserService {
   searchClaims(searchData: any): Observable<any> {
     return this._http.post(this.baseURL + "search", searchData);
   }
+
+  deleteClaim(id: string): Observable<any> {
+    return this._http.delete(this.baseURL + "delete/" + id);
+  }
 }
