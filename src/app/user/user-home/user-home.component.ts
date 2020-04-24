@@ -37,9 +37,11 @@ export class UserHomeComponent implements OnInit {
   }
 
   openClaimsForm(id): void {
-    this._bottomSheet.open(ClaimsFormComponent, {
+    const bottomSheetRef = this._bottomSheet.open(ClaimsFormComponent, {
       data: { id }
     });
+
+    bottomSheetRef.afterDismissed().subscribe(() => { this.loadClaims(); });
   }
 
   openDeleteConfirm(id): void {
@@ -47,6 +49,8 @@ export class UserHomeComponent implements OnInit {
       width: "300px",
       data: { id }
     });
+
+    dialogRef.afterClosed().subscribe(() => { this.loadClaims() });
   }
 
   loadClaims() {

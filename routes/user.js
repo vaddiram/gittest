@@ -3,6 +3,9 @@ const _router = express.Router();
 const con = require("../db");
 const { convertToClaimsLoadData } = require("./helperfunctions");
 
+/**
+ * @DESC: Route to get all claims based on logged in user
+ */
 _router.post("/getAllClaims", (req, res) => {
     con.query("SELECT * FROM claims WHERE user = ? ORDER BY creationdate DESC", [req.body.user], (error, rows) => {
         if (!error) {
@@ -15,6 +18,9 @@ _router.post("/getAllClaims", (req, res) => {
     });
 });
 
+/**
+ * @DESC: Route to add new claim
+ */
 _router.post("/addClaim", (req, res) => {
     let date = new Date(req.body.creationDate);
     
@@ -39,6 +45,9 @@ _router.post("/addClaim", (req, res) => {
     });
 });
 
+/**
+ * @DESC: Route to get single claim based on id
+ */
 _router.get("/singleClaim/:id", (req, res) => {
     con.query("SELECT * FROM claims WHERE id = ?", [req.params.id], (error, rows) => {
         if (!error) {
@@ -56,6 +65,9 @@ _router.get("/singleClaim/:id", (req, res) => {
     });
 });
 
+/**
+ * @DESC: Route to update claim
+ */
 _router.put("/updateClaim/:id", (req, res) => {
     let detailsOfPrimaryInsured = JSON.stringify(req.body.detailsOfPrimaryInsured);
     let detailsOfHospitalization = JSON.stringify(req.body.detailsOfHospitalization);
@@ -75,6 +87,9 @@ _router.put("/updateClaim/:id", (req, res) => {
     });
 });
 
+/**
+ * @DESC: This route gets the claims based on logged in user and filters the final result based on serach form fields
+ */
 _router.post("/search", (req, res) => {
     con.query("SELECT * FROM claims WHERE user = ? ORDER BY creationdate DESC", [req.body.user], (error, rows) => {
         // console.log(req.body.date, req.body.status, req.body.name);
@@ -93,9 +108,21 @@ _router.post("/search", (req, res) => {
     });
 });
 
+/**
+ * @DESC: Route to delete a claim
+ */
 _router.delete("/delete/:id", (req, res) => {
-    console.log(req.params.id);
-    res.send({msg: "From delete route"});
+    con.query("DELETE FROM claims WHERE id = ?", [req.params.id], (error, rows) => {
+        if (!error) {
+            res.send({
+                isDeleted: true,
+                msg: "Claim deleted successfully."
+            });
+        }
+        else {
+            res.send({ error: error });
+        }
+    });
 });
 
 module.exports = _router;

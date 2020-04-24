@@ -72,8 +72,6 @@ export class ClaimsFormComponent implements OnInit {
   onClaimFormSubmit(){
     if(this.data.id === null) {
       let dt = new Date();
-      console.log(dt);
-      console.log(dt.toISOString());
       // let dtStr = dt.getMonth() + 1 + "-" + dt.getDate() + "-" + dt.getFullYear();
 
       this._userService.addClaim({

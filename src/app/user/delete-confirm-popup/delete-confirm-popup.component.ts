@@ -27,13 +27,15 @@ export class DeleteConfirmPopupComponent implements OnInit {
   deleteClaim(claimId) {
     this._userService.deleteClaim(claimId).subscribe(
       res => {
-       console.log(res);
+        if(res.isDeleted) {
+          this._snackBar.open(res.msg, "", { duration: 3000 });
+          this._dialogRef.close();
+        }
       },
       error => {
         this._snackBar.open("ERROR: In selecting claims", "", { duration: 3000 });
         console.error(error);
       }
     );
-    this._dialogRef.close();
   }
 }
