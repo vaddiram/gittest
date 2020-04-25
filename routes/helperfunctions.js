@@ -1,3 +1,5 @@
+const con = require("../db");
+
 const convertToClaimsLoadData = rows => {
     return rows.map(claim => (
         {
@@ -10,6 +12,30 @@ const convertToClaimsLoadData = rows => {
     ));
 }
 
+// const saveActivity = (claimId, activityPerformed) => {
+//     // console.log(claimId, activityPerformed);
+//     let result;
+//     con.query("INSERT INTO activity_log (claim_id, action_type) VALUES (?, ?)", [claimId, activityPerformed], (error) => {
+//         if(!error)
+//             result = true;
+//         else
+//             result = false;
+//     });
+
+//     return result;
+// }
+
+const saveActivity = (claimId, activityPerformed) => {
+    return new Promise((resolve, reject) => {
+        con.query("INSERT INTO activity_log (claim_id, action_type) VALUES (?, ?)", [claimId, activityPerformed], (error) => {
+            if (error)
+                reject(false);
+            resolve(true);
+        });
+    });
+}
+
 module.exports = {
-    convertToClaimsLoadData
+    convertToClaimsLoadData,
+    saveActivity
 };

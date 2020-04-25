@@ -49,6 +49,7 @@ import { ClaimsComponent } from './admin/claims/claims.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
 import { RemoveUserComponent } from './admin/remove-user/remove-user.component';
 import { DeleteConfirmPopupComponent } from './user/delete-confirm-popup/delete-confirm-popup.component';
+import { ActivityHistoryComponent } from './user/activity-history/activity-history.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -69,11 +70,13 @@ export function tokenGetter() {
     ClaimsComponent,
     AddUserComponent,
     RemoveUserComponent,
-    DeleteConfirmPopupComponent
+    DeleteConfirmPopupComponent,
+    ActivityHistoryComponent
   ],
   entryComponents: [
     ClaimsFormComponent,
-    DeleteConfirmPopupComponent
+    DeleteConfirmPopupComponent,
+    ActivityHistoryComponent
   ],
   imports: [
     BrowserModule,

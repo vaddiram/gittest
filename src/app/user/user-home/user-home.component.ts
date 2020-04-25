@@ -5,6 +5,7 @@ import { ClaimsFormComponent } from '../claims-form/claims-form.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { DeleteConfirmPopupComponent } from '../delete-confirm-popup/delete-confirm-popup.component';
+import { ActivityHistoryComponent } from '../activity-history/activity-history.component';
 
 @Component({
   selector: 'app-user-home',
@@ -51,6 +52,13 @@ export class UserHomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(() => { this.loadClaims() });
+  }
+
+  showHistory(id): void{
+    const dialogRef = this._dialog.open(ActivityHistoryComponent, {
+      width: "300px",
+      data: { id }
+    });
   }
 
   loadClaims() {

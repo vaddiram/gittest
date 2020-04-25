@@ -47,6 +47,7 @@ export class ClaimsComponent implements OnInit {
     this._adminService.approveClaim(claimId).subscribe(
       res => {
         if(res.isApproved) {
+          this._snackBar.open(res.msg, "", { duration: 3000 });
           this.loadAllUsersClaims();
         }
       },
@@ -61,6 +62,7 @@ export class ClaimsComponent implements OnInit {
     this._adminService.declineClaim(claimId).subscribe(
       res => {
         if(res.isRejected) {
+          this._snackBar.open(res.msg, "", { duration: 3000 });
           this.loadAllUsersClaims();
         }
       },

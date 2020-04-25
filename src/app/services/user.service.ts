@@ -34,6 +34,10 @@ export class UserService {
   }
 
   deleteClaim(id: string): Observable<any> {
-    return this._http.delete(this.baseURL + "delete/" + id);
+    return this._http.put(this.baseURL + "delete/" + id, { deleted: 1 });
+  }
+
+  getActionHistory(id: string): Observable<any> {
+    return this._http.get(this.baseURL + "get-action-history/" + id);
   }
 }

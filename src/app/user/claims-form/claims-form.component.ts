@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-claims-form',
@@ -20,7 +19,6 @@ export class ClaimsFormComponent implements OnInit {
     private _authService: AuthService,
     private _userService: UserService,
     private _snackBar: MatSnackBar,
-    private _router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) {
     this.claimForm = this._fb.group({
